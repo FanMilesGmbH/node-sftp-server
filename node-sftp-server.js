@@ -351,6 +351,9 @@ SFTPSession = (function(superClass) {
         rs._read = (function(_this) {
           return function(bytes) {
             if (started) {
+              if(rs._readableState.length < 32768) {
+                _this.handles[handle].stream.push(null);
+              }
               return;
             }
             handle = _this.fetchhandle();
