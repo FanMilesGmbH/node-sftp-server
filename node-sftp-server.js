@@ -78,11 +78,12 @@ DirectoryEmitter = (function(superClass) {
     }
   };
 
-  DirectoryEmitter.prototype.file = function(name) {
+  DirectoryEmitter.prototype.file = function(name, attrs) {
+    var newAttrs = attrs || {};
     this.stopped = this.sftpStream.name(this.req, {
       filename: name.toString(),
       longname: name.toString(),
-      attrs: {}
+      attrs: newAttrs
     });
     if (!this.stopped && !this.done) {
       return this.emit("dir");
