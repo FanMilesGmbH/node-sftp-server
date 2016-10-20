@@ -127,6 +127,11 @@ module.exports = SFTPServer = (function(superClass) {
       privateKey: fs.readFileSync(privateKey || 'ssh_host_rsa_key')
     }, (function(_this) {
       return function(client, info) {
+        client._sshstream._authFailure = client._sshstream.authFailure;
+        client._sshstream.authFailure = function() {
+            client._sshstream._authFailure(['password']);
+        }
+
         client.on('authentication', function(ctx) {
           _this.auth_wrapper = new ContextWrapper(ctx, _this);
           return _this.emit("connect", _this.auth_wrapper);
