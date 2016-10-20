@@ -357,9 +357,9 @@ SFTPSession = (function(superClass) {
         rs._read = (function(_this) {
           return function(bytes) {
             if (started) {
-              if(rs._readableState.length < 32768) {
-                _this.handles[handle].stream.push(null);
-              }
+//              if(rs._readableState.length < 32768) {
+//                _this.handles[handle].stream.push(null);
+//              }
               return;
             }
             handle = _this.fetchhandle();
@@ -424,7 +424,7 @@ SFTPSession = (function(superClass) {
   };
 
   SFTPSession.prototype.CLOSE = function(reqid, handle) {
-    return this.sftpStream.status(reqid, ssh2.SFTP_STATUS_CODE.OK);
+    //return this.sftpStream.status(reqid, ssh2.SFTP_STATUS_CODE.OK);
     if (this.handles[handle]) {
       switch (this.handles[handle].mode) {
         case "OPENDIR":
@@ -436,7 +436,7 @@ SFTPSession = (function(superClass) {
           return this.sftpStream.status(reqid, ssh2.SFTP_STATUS_CODE.OK);
         case "WRITE":
           this.handles[handle].stream.push(null);
-          delete this.handles[handle];
+          //delete this.handles[handle];
           return this.sftpStream.status(reqid, ssh2.SFTP_STATUS_CODE.OK);
         default:
           return this.sftpStream.status(reqid, ssh2.SFTP_STATUS_CODE.FAILURE);
