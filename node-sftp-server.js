@@ -82,7 +82,7 @@ DirectoryEmitter = (function(superClass) {
     var newAttrs = attrs || {};
     this.stopped = this.sftpStream.name(this.req, {
       filename: name.toString(),
-      longname: name.toString(),
+      longname: newAttrs.longname || name.toString(),
       attrs: newAttrs
     });
     if (!this.stopped && !this.done) {
