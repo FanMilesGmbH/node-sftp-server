@@ -124,7 +124,7 @@ module.exports = SFTPServer = (function(superClass) {
 
   function SFTPServer(privateKey) {
     this.server = new ssh2.Server({
-      privateKey: fs.readFileSync(privateKey || 'ssh_host_rsa_key')
+      hostKeys: [fs.readFileSync(privateKey || 'ssh_host_rsa_key')]
     }, (function(_this) {
       return function(client, info) {
         client.on('authentication', function(ctx) {
